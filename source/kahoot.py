@@ -2,6 +2,12 @@ import requests
 import re
 from googletrans import Translator
 from bs4 import BeautifulSoup
+import os
+
+directory = "kahoot"
+
+if not os.path.exists(directory):
+    os.mkdir(directory)
 
 translator = Translator()
 
@@ -82,7 +88,8 @@ for i, link in enumerate(LIST_Link):
     
     result += '</table>'
 
-    with open(f"kahoot1/{chapter}.{chapterTitle}.html", "w", encoding="utf-8") as f:
+    path = f"../{directory}/{chapter}.{chapterTitle}.html"
+    with open(path, "w", encoding="utf-8") as f:
         f.write(styles)
         f.write(f"<h1>Chương {chapter}: {chapterTitle.replace('-', ' ')}</h1> \n")
         f.write(result)

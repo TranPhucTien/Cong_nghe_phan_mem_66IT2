@@ -2,6 +2,12 @@ import requests
 import re
 from googletrans import Translator
 from bs4 import BeautifulSoup
+import os
+
+directory = "word"
+
+if not os.path.exists(directory):
+    os.mkdir(directory)
 
 translator = Translator()
 
@@ -29,10 +35,10 @@ css = '''<style>
     }
 </style>\n'''
 
-fileName = 'results'
+fileName = 'Nhom-7-CNPM'
 
 with open(f"{fileName}.html", "w", encoding="utf-8") as f:
-        f.write(css)
+        
         f.close()
 
 for i, link in enumerate(LIST_Link):
@@ -81,11 +87,9 @@ for i, link in enumerate(LIST_Link):
             resultVie = translator.translate(resultEng, src='en', dest='vi').text
             result += f'<div class="eng">{resultEng}</div> \n <div class="vie">{resultVie}</div>\n'
 
-    with open(f"word/{fileName}.html", "a", encoding="utf-8") as f:
+    path = f"../{directory}/{fileName}.html"
+    with open(path, "a", encoding="utf-8") as f:
         f.write(f"<h1>Chương {chapter}: {chapterTitle.replace('-', ' ')}</h1> \n")
-        f.close()
-
-    with open(f"{fileName}.html", "a", encoding="utf-8") as f:
         f.write(result)
         f.write('\n\n\n\n\n')
         f.close()
